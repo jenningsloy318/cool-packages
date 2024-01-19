@@ -8,7 +8,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=podfetch
+PKG_NAME:=PodFetch
 PKG_VERSION:=4.6.0
 PKG_RELEASE:=1
 
