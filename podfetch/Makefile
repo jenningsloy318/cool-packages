@@ -22,7 +22,6 @@ PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-PKG_BUILD_DEPENDS = rust postgresql sqlite3
 
 HOST_BUILD_DEPENDS:=rust/host
 
@@ -33,6 +32,7 @@ include ../../packages/lang/rust/rust-host-build.mk
 define Package/podfetch
   SECTION:=multimedia
   CATEGORY:=Multimedia
+  DEPENDS:=+postgresql +sqlite3
   TITLE:=podfetch
   URL:=https://github.com/SamTV12345/PodFetch/
 endef
