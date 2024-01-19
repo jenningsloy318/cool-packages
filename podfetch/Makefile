@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/SamTV12345/$(PKG_NAME)/archive/refs/tags/v$(PKG_VERSION).tar.gz
-PKG_HASH:=d666f2264afaef79cddc5c6314234d16db22ea0f
+PKG_HASH:=5af49c1ef00428fa5fc8e276a2e2203462261ce308e5e648d29b2914ebc837f1
 PKG_MAINTAINER := Jennings Liu <jenningsloy318@gmail.com>
 PKG_LICENSE:=Apache License 2.0
 PKG_LICENSE_FILES:=LICENSE
