@@ -32,7 +32,7 @@ include ../../packages/lang/rust/rust-host-build.mk
 define Package/podfetch
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  DEPENDS:=+postgresql +sqlite3
+  DEPENDS:=+pgsql-server
   TITLE:=podfetch
   URL:=https://github.com/SamTV12345/PodFetch/
 endef
