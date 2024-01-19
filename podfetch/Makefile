@@ -13,7 +13,7 @@ PKG_VERSION:=4.6.0
 PKG_RELEASE:=1
 
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/SamTV12345/$(PKG_NAME)/archive/refs/tags/v$(PKG_VERSION).tar.gz
 PKG_HASH:=d666f2264afaef79cddc5c6314234d16db22ea0f
 PKG_MAINTAINER := Jennings Liu <jenningsloy318@gmail.com>
