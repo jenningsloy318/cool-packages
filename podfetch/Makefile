@@ -12,7 +12,7 @@ PKG_NAME:=PodFetch
 PKG_VERSION:=4.6.0
 PKG_RELEASE:=1
 
-
+PKG_LIBC:=musl
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/SamTV12345/$(PKG_NAME)/archive/refs/tags/v$(PKG_VERSION).tar.gz
 PKG_HASH:=5af49c1ef00428fa5fc8e276a2e2203462261ce308e5e648d29b2914ebc837f1
