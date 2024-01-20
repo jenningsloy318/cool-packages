@@ -24,7 +24,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 
 PKG_BUILD_DEPENDS:=postgresql sqlite3
-
+TARGET_CC=aarch64-openwrt-linux-musl-gcc
 
 include $(INCLUDE_DIR)/package.mk
 include ../../packages/lang/rust/rust-host-build.mk
