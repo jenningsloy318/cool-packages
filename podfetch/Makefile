@@ -24,7 +24,6 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 
 PKG_BUILD_DEPENDS:=postgresql sqlite3
-TARGET_CC=aarch64-openwrt-linux-musl-gcc
 
 include $(INCLUDE_DIR)/package.mk
 include ../../packages/lang/rust/rust-host-build.mk
@@ -45,7 +44,7 @@ endef
 	
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR) && cargo rustc --target=$(RUSTC_TARGET_ARCH) --release -- -C linker=$(TARGET_CC) -C ar=$(TARGET_AR) -C prefer-dynamic -C opt-level=z -C debuginfo=0
+	cd $(PKG_BUILD_DIR) && cargo build --target=$(RUSTC_TARGET_ARCH) 
 	$(TOPDIR)/staging_dir/toolchain-*/bin/aarch64-openwrt-linux-musl-strip -s $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/main
 	stat $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/main
 endef
