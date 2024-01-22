@@ -23,15 +23,13 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 
-PKG_BUILD_DEPENDS:=postgresql sqlite3
-
 include $(INCLUDE_DIR)/package.mk
-include ../../packages/lang/rust/rust-host-build.mk
+include ../../packages/lang/rust/rust-package.mk
 
 define Package/podfetch
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  DEPENDS:=+pgsql-server
+  DEPENDS:=+rust +libpq +libsqlite3
   TITLE:=podfetch
   URL:=https://github.com/SamTV12345/PodFetch/
 endef
@@ -44,14 +42,25 @@ endef
 	
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR) && cargo build --target=$(RUSTC_TARGET_ARCH) 
-	$(TOPDIR)/staging_dir/toolchain-*/bin/aarch64-openwrt-linux-musl-strip -s $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/main
-	stat $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/main
+	cd $(PKG_BUILD_DIR)/ui && npm install && npm run build-github
+	cd $(PKG_BUILD_DIR) && \
+	PKG_CONFIG_ALLOW_CROSS=1 \
+	OPENSSL_DIR=$(STAGING_DIR)/usr/ \
+	RUSTFLAGS="-C linker=$(TARGET_CC) -C target-feature=+crt-static" \
+	CC=$(TARGET_CC) \
+	CFLAGS="$(TARGET_CFLAGS)" \
+	TARGET_CFLAGS="$(TARGET_CFLAGS)" \
+	CXX=$(TARGET_CXX) \
+	CXXFLAGS="$(TARGET_CXXFLAGS)" \
+	TARGET_CXXFLAGS="$(TARGET_CXXFLAGS)" \
+	cargo build  --release  --target=$(RUSTC_TARGET_ARCH)  --package podfetch --bin podfetch
 endef
 
 define Package/podfetch/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/main $(1)/usr/bin/podfetch
+	$(INSTALL_DIR) $(1)/etc/podfetch
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/podfetch $(1)/usr/bin/podfetch
+	$(CP)  $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/ui $(1)/etc/podfetch/ui
 endef
 
 $(eval $(call BuildPackage,podfetch))
