@@ -21,7 +21,7 @@ PKG_LICENSE:=Apache License 2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-
+PKG_BUILD_DEPENDS = postgresql15
 
 include $(INCLUDE_DIR)/package.mk
 include ../../packages/lang/rust/rust-package.mk
