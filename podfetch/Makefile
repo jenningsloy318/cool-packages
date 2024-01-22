@@ -21,7 +21,7 @@ PKG_LICENSE:=Apache License 2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS = postgresql15
+PKG_BUILD_DEPENDS = postgresql rust/host node/host
 
 include $(INCLUDE_DIR)/package.mk
 include ../../packages/lang/rust/rust-package.mk
@@ -29,7 +29,7 @@ include ../../packages/lang/rust/rust-package.mk
 define Package/podfetch
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  DEPENDS:=+rust +libpq +libsqlite3
+  DEPENDS:=+libpq +libsqlite3
   TITLE:=podfetch
   URL:=https://github.com/SamTV12345/PodFetch/
 endef
