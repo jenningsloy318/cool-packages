@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 PKG_LIBC:=musl
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/SamTV12345/PodFetch/archive/refs/tags/v$(PKG_VERSION).tar.gz
-PKG_HASH:=fe97b9cc15c31fefcad233995a2d58c94475111a
+PKG_HASH:=37b13d8700d8bd37e255e311446003a16ea4e71d44cf35b804bcf57c79e5c555
 PKG_MAINTAINER := Jennings Liu <jenningsloy318@gmail.com>
 PKG_LICENSE:=Apache License 2.0
 PKG_LICENSE_FILES:=LICENSE
@@ -59,7 +59,7 @@ define Package/podfetch/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/podfetch
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/release/podfetch $(1)/usr/bin/podfetch
-	$(CP)  $(PKG_BUILD_DIR)/target/$(RUSTC_TARGET_ARCH)/ui $(1)/etc/podfetch/ui
+	$(CP)  $(PKG_BUILD_DIR)/static $(1)/etc/podfetch/static
 endef
 
 $(eval $(call BuildPackage,podfetch))
