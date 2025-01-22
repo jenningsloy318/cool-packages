@@ -9,19 +9,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=PodFetch
-PKG_VERSION:=4.6.0
+PKG_VERSION:=4.8.0
 PKG_RELEASE:=1
 
 PKG_LIBC:=musl
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/SamTV12345/$(PKG_NAME)/archive/refs/tags/v$(PKG_VERSION).tar.gz
-PKG_HASH:=5af49c1ef00428fa5fc8e276a2e2203462261ce308e5e648d29b2914ebc837f1
+PKG_SOURCE_URL:=https://github.com/SamTV12345/PodFetch/archive/refs/tags/v$(PKG_VERSION).tar.gz
+PKG_HASH:=fe97b9cc15c31fefcad233995a2d58c94475111a
 PKG_MAINTAINER := Jennings Liu <jenningsloy318@gmail.com>
 PKG_LICENSE:=Apache License 2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DEPENDS = postgresql 
 
 include $(INCLUDE_DIR)/package.mk
 include ../../packages/lang/rust/rust-package.mk
@@ -29,7 +28,7 @@ include ../../packages/lang/rust/rust-package.mk
 define Package/podfetch
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  DEPENDS:=+libpq +libsqlite3
+  DEPENDS:= +libsqlite3
   TITLE:=podfetch
   URL:=https://github.com/SamTV12345/PodFetch/
 endef
@@ -42,7 +41,7 @@ endef
 	
 
 define Build/Compile
-	cd $(PKG_BUILD_DIR)/ui && npm install && npm run build-github
+	cd $(PKG_BUILD_DIR)/ui && npm install --force && npm run build-github
 	cd $(PKG_BUILD_DIR) && \
 	PKG_CONFIG_ALLOW_CROSS=1 \
 	OPENSSL_DIR=$(STAGING_DIR)/usr/ \
@@ -53,7 +52,7 @@ define Build/Compile
 	CXX=$(TARGET_CXX) \
 	CXXFLAGS="$(TARGET_CXXFLAGS)" \
 	TARGET_CXXFLAGS="$(TARGET_CXXFLAGS)" \
-	cargo build  --release  --target=$(RUSTC_TARGET_ARCH)  --package podfetch --bin podfetch
+	cargo build  --release  --target=$(RUSTC_TARGET_ARCH)  --package podfetch --bin podfetch --features "sqlite"
 endef
 
 define Package/podfetch/install
